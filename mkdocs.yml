@@ -1,0 +1,142 @@
+site_name: Angelia
+site_description: >-
+  The self-hosted release event bus. Angelia watches PyPI, npm, crates.io and GitHub or GitLab releases,
+  detects every new version and delivers one signed CloudEvent to your CI, your chat or your AI agents.
+site_url: https://angelia-dev.github.io/docs/
+repo_name: angelia-dev/angelia
+repo_url: https://github.com/angelia-dev/angelia
+edit_uri: https://github.com/angelia-dev/docs/edit/main/docs/
+copyright: Copyright &copy; 2026 the Angelia authors. Apache License 2.0.
+
+theme:
+  name: material
+  custom_dir: overrides
+  language: en
+  logo: assets/brand/glyph-white.svg
+  favicon: assets/brand/angelia-mark.svg
+  icon:
+    repo: fontawesome/brands/github
+  font: false
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to the night wire
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to the day wire
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.path
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - content.action.edit
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/angelia-dev
+      name: Angelia on GitHub
+
+extra_css:
+  - stylesheets/angelia.css
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+plugins:
+  - search:
+      lang: en
+
+not_in_nav: |
+  /videos/**
+
+nav:
+  - Home: index.md
+  - Get started:
+      - get-started/index.md
+      - Quickstart: get-started/quickstart.md
+      - Install: get-started/install.md
+      - Your first event: get-started/first-event.md
+      - Video tour: get-started/videos.md
+  - Concepts:
+      - concepts/index.md
+      - Components: concepts/components.md
+      - The release event: concepts/release-event.md
+      - Policies: concepts/policies.md
+      - Subscriptions and filters: concepts/subscriptions.md
+      - Message templates: concepts/templates.md
+      - Security model: concepts/security.md
+  - Watch sources:
+      - sources/index.md
+      - PyPI: sources/pypi.md
+      - npm: sources/npm.md
+      - crates.io: sources/crates.md
+      - GitHub releases and tags: sources/github.md
+      - GitLab releases: sources/gitlab.md
+      - Private registries: sources/private-registries.md
+  - Notify:
+      - notify/index.md
+      - Webhooks: notify/webhook.md
+      - GitHub Actions dispatch: notify/github-dispatch.md
+      - Chat and push: notify/chat.md
+      - Pull API and SSE: notify/pull-api.md
+      - AI agents (MCP): notify/mcp.md
+  - Recipes:
+      - recipes/index.md
+      - Home Assistant to an agentic PR: recipes/home-assistant-agentic.md
+      - Chat digest of major releases: recipes/chat-majors.md
+      - Test against every pre-release: recipes/prerelease-ci.md
+      - An agent that reads the wire: recipes/agent-wire.md
+  - Reference:
+      - reference/index.md
+      - Watch file: reference/watch-file.md
+      - Instance configuration: reference/configuration.md
+      - Command line: reference/cli.md
