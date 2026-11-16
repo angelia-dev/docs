@@ -1,0 +1,232 @@
+{% extends "main.html" %}
+
+{% block tabs %}
+{{ super() }}
+<div class="ag-home">
+
+  <section class="ag-hero" aria-labelledby="ag-hero-title">
+    <div class="ag-wrap ag-hero__grid">
+      <div class="ag-hero__head">
+        <div class="ag-wordmark">
+          <img src="{{ 'assets/brand/glyph-white.svg' | url }}" alt="" width="54" height="63">
+          <span>Angelia</span>
+        </div>
+        <h1 id="ag-hero-title">Every release, <em>on the wire</em>, the moment it lands.</h1>
+      </div>
+
+      <div class="ag-teletype">
+        <div class="ag-teletype__head">
+          <span class="ag-live"><i aria-hidden="true"></i> Wire</span>
+          <span>Sample bulletins</span>
+        </div>
+        <div class="ag-teletype__paper">
+          <canvas id="ag-wire" role="img" aria-label="A teleprinter prints release bulletins and strikes each one to its desks: react 20.0.0 flagged FLASH and routed to a GitHub dispatch and a webhook; requests 2.33.0 BULLETIN routed to a webhook and chat; Home Assistant 2026.11.1 ROUTINE routed to a GitHub dispatch of home-assistant-csnet-home; tokio 2.0.0-rc.1 pre-release offered to agents over MCP."></canvas>
+        </div>
+        <div class="ag-tape ag-tape--moving" aria-hidden="true"></div>
+        <p class="ag-teletype__note">Priority comes from the bump: major is FLASH, minor BULLETIN, patch ROUTINE.</p>
+      </div>
+
+      <div class="ag-hero__body">
+        <p class="ag-hero__lede">
+          Angelia is the self-hosted release event bus. It watches PyPI, npm, crates.io and GitHub or GitLab
+          releases, turns every new version into one signed CloudEvent, and delivers it to your CI, your chat
+          or your AI agents.
+        </p>
+        <div class="ag-actions">
+          <a class="ag-btn ag-btn--gold" href="{{ 'get-started/quickstart/' | url }}">
+            Start in five minutes
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="ag-btn ag-btn--line" href="{{ 'videos/overview/index.html' | url }}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+            Watch the tour
+          </a>
+        </div>
+        <p class="ag-facts">
+          <span><b>v0.2.0</b></span><span><b>1</b> binary</span><span><b>6</b> sources</span><span><b>3</b> sinks + pull, SSE, MCP</span><span>SQLite or Postgres</span><span>Apache-2.0</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ag-section ag-section--paper" aria-labelledby="ag-route-title">
+    <div class="ag-wrap">
+      <h2 class="ag-h2" id="ag-route-title">Detect. Normalize. Deliver. Nothing else.</h2>
+      <p class="ag-sub">
+        What to do about a release stays with you. Angelia's job is to make sure you hear about every one,
+        once, in a shape every consumer understands.
+      </p>
+      <ol class="ag-route">
+        <li>
+          <h3><span class="slug">Detect.</span> It watches, politely.</h3>
+          <p>A scheduler checks each target on its own interval with per-host rate limits and conditional requests.
+            Fifty watches on <code>pypi:requests</code> cost one fetch.</p>
+        </li>
+        <li>
+          <h3><span class="slug">Normalize.</span> It understands versions.</h3>
+          <p>SemVer, PEP 440, calver: every new version is diffed against the known set, so a backport like
+            <code>1.9.4</code> after <code>2.0.0</code> is caught. Policies filter and cool down.</p>
+        </li>
+        <li>
+          <h3><span class="slug">Deliver.</span> It never drops one.</h3>
+          <p>One immutable event, one delivery per subscriber, written in the same transaction. Retries with
+            backoff, dead letters, replay.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="ag-section" aria-labelledby="ag-event-title">
+    <div class="ag-wrap ag-anatomy">
+      <div>
+        <h2 class="ag-h2" id="ag-event-title">The bulletin is the product.</h2>
+        <p class="ag-sub">Whatever the source, whatever the sink, consumers read the same CloudEvent, specified by a JSON Schema.</p>
+<pre class="ag-code" tabindex="0"><code>{
+  <span class="k">"type"</span>: <span class="s">"dev.angelia.release.published.v1"</span>,
+  <span class="k">"id"</span>: <mark><span class="s">"01JBX2A7C8D9E0F1G2H3J4K5M6"</span></mark>,
+  <span class="k">"subject"</span>: <span class="s">"pypi:requests@2.33.0"</span>,
+  <span class="k">"data"</span>: {
+    <span class="k">"package"</span>: <span class="s">"requests"</span>,
+    <span class="k">"version"</span>: <span class="s">"2.33.0"</span>,
+    <span class="k">"previous_version"</span>: <span class="s">"2.32.5"</span>,
+    <span class="k">"bump"</span>: <mark><span class="s">"minor"</span></mark>,
+    <span class="k">"backport"</span>: <span class="n">false</span>,
+    <span class="k">"scheme"</span>: <span class="s">"pep440"</span>,
+    <span class="k">"urls"</span>: { <span class="k">"release"</span>: <span class="s">"https://pypi.org/project/requests/2.33.0/"</span> },
+    <span class="k">"watch"</span>: { <span class="k">"name"</span>: <span class="s">"requests"</span>, <span class="k">"labels"</span>: { <span class="k">"team"</span>: <span class="s">"platform"</span> } },
+    <span class="k">"purl"</span>: <mark><span class="s">"pkg:pypi/requests@2.33.0"</span></mark>
+  }
+}</code></pre>
+      </div>
+      <dl class="ag-notes">
+        <dt>id</dt>
+        <dd>Generated once. Every retry and replay carries it, so consumers deduplicate on it.</dd>
+        <dt>bump</dt>
+        <dd>Measured against the greatest earlier version, in the package's own scheme. Filter on it, route on it.</dd>
+        <dt>purl</dt>
+        <dd>A package URL, so you can join releases with your SBOMs, OSV advisories and Renovate.</dd>
+        <dt>null, never missing</dt>
+        <dd>Every documented field is always present. <a href="{{ 'concepts/release-event/' | url }}">Read the contract</a>.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="ag-section ag-section--paper" aria-labelledby="ag-desks-title">
+    <div class="ag-wrap">
+      <h2 class="ag-h2" id="ag-desks-title">Route it to every desk that cares.</h2>
+      <p class="ag-sub">Push to the systems that can be called. Let the others pull, from a cursor that never skips.</p>
+      <table class="ag-desks">
+        <thead><tr><th scope="col">Desk</th><th scope="col">For</th><th scope="col">Sink</th></tr></thead>
+        <tbody>
+          <tr><td>Webhook</td><td>Your CI server, n8n, a Lambda, your own bot. Signed with Standard Webhooks. <a href="{{ 'notify/webhook/' | url }}">Webhooks</a></td><td class="mono">kind: webhook</td></tr>
+          <tr><td>GitHub Actions</td><td>Run tests against the new version, open an update PR, start an agent. <a href="{{ 'notify/github-dispatch/' | url }}">Dispatch</a></td><td class="mono">kind: github-dispatch</td></tr>
+          <tr><td>Chat and push</td><td>Slack, Discord, Telegram, ntfy, Gotify, Matrix, with your own message template. <a href="{{ 'notify/chat/' | url }}">Chat</a></td><td class="mono">kind: shoutrrr</td></tr>
+          <tr><td>Pull and stream</td><td>Consumers with no public URL: named cursors, acknowledgements, server-sent events. <a href="{{ 'notify/pull-api/' | url }}">Pull API</a></td><td class="mono">GET /v1/events</td></tr>
+          <tr><td>AI agents</td><td>Ask what changed, read events, add a watch, through MCP with scoped tokens. <a href="{{ 'notify/mcp/' | url }}">MCP</a></td><td class="mono">angelia mcp</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ag-section ag-section--ink" aria-labelledby="ag-story-title">
+    <div class="ag-wrap ag-story">
+      <div>
+        <h2 class="ag-h2" id="ag-story-title">From a Home Assistant release to a pull request.</h2>
+        <p class="ag-sub" style="margin-bottom:0">A real setup, end to end, for a custom integration that must keep up with Home Assistant every month.</p>
+        <ol class="ag-steps">
+          <li><span><b>Angelia sees</b> <code>home-assistant/core</code> publish a release, betas included.</span></li>
+          <li><span><b>It dispatches</b> <code>ha-release</code> to the integration's repository, after a one-hour cooldown.</span></li>
+          <li><span><b>Tests run</b> against that exact version, before anyone reads the changelog.</span></li>
+          <li><span><b>Claude reviews</b> the release notes and the HA API diff, with no tools, and opens an issue.</span></li>
+          <li><span><b>A maintainer approves</b> with a label, and an agent prepares the fix as a PR.</span></li>
+        </ol>
+        <a class="ag-btn ag-btn--line" href="{{ 'recipes/home-assistant-agentic/' | url }}">Read the recipe</a>
+      </div>
+      <a class="ag-film" href="{{ 'videos/home-assistant/index.html' | url }}" aria-label="Play the narrated video of the Home Assistant recipe">
+        <canvas id="ag-film" aria-hidden="true"></canvas>
+        <span class="ag-film__len">NARRATED · EN</span>
+        <span class="ag-film__play">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+          Watch the walkthrough
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <section class="ag-section" aria-labelledby="ag-install-title">
+    <div class="ag-wrap ag-install">
+      <div>
+        <h2 class="ag-h2" id="ag-install-title">Three commands to a running wire.</h2>
+        <p class="ag-sub">One container with SQLite on a volume. The binary is static, signed and attested when you outgrow it.</p>
+        <div class="ag-actions">
+          <a class="ag-btn ag-btn--gold" href="{{ 'get-started/quickstart/' | url }}">Quickstart</a>
+          <a class="ag-btn ag-btn--line" href="{{ 'get-started/install/' | url }}">Install as a service</a>
+        </div>
+      </div>
+<pre class="ag-term" tabindex="0"><code><span class="c"># one container, SQLite, loopback only</span>
+<span class="p">$ </span>git clone --depth 1 https://github.com/angelia-dev/angelia && cd angelia/deploy/compose/sqlite
+<span class="p">$ </span>docker run --rm ghcr.io/angelia-dev/angelia:0.2.0 token generate > bootstrap-token && chmod 0644 bootstrap-token
+<span class="p">$ </span>docker compose up -d
+<span class="c"># then say what to watch, in watches.yaml</span>
+version: 1
+watches:
+  - name: home-assistant
+    source: github-release
+    coordinates: { repo: home-assistant/core }
+    scheme: calver</code></pre>
+    </div>
+  </section>
+
+  <section class="ag-section ag-section--paper" aria-labelledby="ag-ledger-title">
+    <div class="ag-wrap">
+      <h2 class="ag-h2" id="ag-ledger-title">What is on the wire today.</h2>
+      <p class="ag-sub">Angelia is pre-1.0. This is the honest ledger of v0.2.0.</p>
+      <div class="ag-ledger">
+        <div class="shipped">
+          <h3>Shipped</h3>
+          <ul>
+            <li>Sources: PyPI, npm, crates.io, GitHub releases and tags, GitLab releases</li>
+            <li>Private registries and mirrors, stored secrets bound to hosts</li>
+            <li>Sinks: signed webhooks, GitHub dispatch, Slack, Discord, Telegram, ntfy, Gotify, Matrix</li>
+            <li>Policies: pre-releases, ranges, bumps, include and exclude, cooldown</li>
+            <li>REST API with scoped tokens, pull API, SSE, MCP</li>
+            <li>SQLite and Postgres, several replicas without a queue</li>
+          </ul>
+        </div>
+        <div class="planned">
+          <h3>Planned</h3>
+          <ul>
+            <li>OCI images, Maven, Go module proxy, generic HTTP sources</li>
+            <li>NATS and MQTT sinks, GitLab pipeline triggers</li>
+            <li>Release notes in events, OSV advisories</li>
+            <li>Third-party plugins (WASM)</li>
+            <li>Web UI and published Helm charts</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ag-close" aria-labelledby="ag-close-title">
+    <div class="ag-wrap">
+      <h2 class="ag-h2" id="ag-close-title">Hear about the next release before your users do.</h2>
+      <p>Angelia, from the ancient Greek for "message, news": the herald's daughter, now running your release wire.</p>
+      <div class="ag-actions">
+        <a class="ag-btn ag-btn--gold" href="{{ 'get-started/' | url }}">Get started</a>
+        <a class="ag-btn ag-btn--line" href="https://github.com/angelia-dev/angelia">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5z"/></svg>
+          Source on GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+  <div class="ag-tape" aria-hidden="true"></div>
+</div>
+{% endblock %}
+
+{% block content %}{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script src="{{ 'javascripts/wire.js' | url }}" defer></script>
+{% endblock %}

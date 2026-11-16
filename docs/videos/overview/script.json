@@ -1,0 +1,32 @@
+{
+  "_doc": "Angelia overview. One entry per scene; sentences are cues. Numbers in words. Re-run narrate.py after any change.",
+  "langs": ["en"],
+  "voices": {"kokoro": {"en": {"voice": "af_heart"}}},
+  "scenes": [
+    {"id": "hook", "min": 7, "lead": 0.6, "chapter": {"en": "Releases everywhere"},
+     "en": ["Your project depends on hundreds of packages.",
+            "Each of them releases on its own schedule, somewhere else."]},
+    {"id": "intro", "min": 8, "chapter": {"en": "Angelia"},
+     "en": ["Angelia is a self-hosted release event bus.",
+            "It watches the registries for you, and turns every new version into one clean event.",
+            "Detect, normalize, deliver."]},
+    {"id": "sources", "min": 8, "chapter": {"en": "Detect"},
+     "en": ["It watches PyPI, npm, crates dot io, and the releases of GitHub and GitLab.",
+            "Fifty watches on the same package cost a single request."]},
+    {"id": "policy", "min": 10, "chapter": {"en": "Normalize"},
+     "en": ["Every new version is compared with the ones it already knows, in the package's own version scheme.",
+            "Policies decide what counts: pre-releases, ranges, the size of the bump, and a cooldown before anything moves."]},
+    {"id": "event", "min": 8, "chapter": {"en": "The event"},
+     "en": ["The result is one CloudEvent, with a stable id, the bump, and a package URL.",
+            "Every consumer reads the same shape."]},
+    {"id": "deliver", "min": 12, "chapter": {"en": "Deliver"},
+     "en": ["Angelia delivers it to signed webhooks, GitHub Actions, and chat.",
+            "Consumers without a public address pull it from a cursor, and AI agents ask through MCP.",
+            "Deliveries that fail are retried, then kept for replay."]},
+    {"id": "install", "min": 8, "chapter": {"en": "Run it"},
+     "en": ["It is one binary, with SQLite or Postgres.",
+            "With Docker, it runs in a few minutes."]},
+    {"id": "outro", "min": 6, "tail": 1.8, "chapter": {"en": "Get started"},
+     "en": ["Angelia. Hear about every release, before your users do."]}
+  ]
+}
