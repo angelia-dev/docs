@@ -67,10 +67,21 @@ subscriptions:
       cooldown: 1h                          # let the PyPI wheel land; drop it if yanked
 ```
 
+```yaml title="angelia.yaml (excerpt)"
+sources:
+  github-release:
+    token_env: GITHUB_TOKEN     # any token: public reads only need one to lift the rate limit
+```
+
 ```sh
 angelia secret set gh-dispatch-csnet --from-file pat.txt --host api.github.com
 angelia config check --config angelia.yaml --watches watches.yaml
 ```
+
+!!! warning "Give the GitHub source a token"
+    `home-assistant/core` has hundreds of releases, so the first full scan needs several pages. Without a token,
+    GitHub allows 60 requests an hour and the scan cannot finish (`netguard: rate limit wait for api.github.com
+    would pass the deadline`). With a token, an unchanged repository costs nothing afterwards.
 
 Why each line is there:
 
