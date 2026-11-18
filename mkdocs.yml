@@ -105,7 +105,11 @@ nav:
       - Quickstart: get-started/quickstart.md
       - Install: get-started/install.md
       - Your first event: get-started/first-event.md
+      - After the first install: get-started/after-install.md
       - Video tour: get-started/videos.md
+  - Admin UI:
+      - admin-ui/index.md
+      - Set up: admin-ui/setup.md
   - Concepts:
       - concepts/index.md
       - Components: concepts/components.md
