@@ -25,6 +25,7 @@ Subscription
 | See it work in five minutes, with Docker | [Quickstart](quickstart.md) |
 | Install a verified binary as a service | [Install](install.md) |
 | Receive and verify your first signed event | [Your first event](first-event.md) |
+| Add a watch, a sink and a subscription from the admin UI | [After the first install](after-install.md) |
 | Watch a narrated tour first | [Video tour](videos.md) |
 | Trigger an AI agent when an upstream releases | [Home Assistant to an agentic PR](../recipes/home-assistant-agentic.md) |
 
